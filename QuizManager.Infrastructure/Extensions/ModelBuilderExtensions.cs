@@ -10,22 +10,6 @@ namespace QuizManager.Infrastructure.Extensions
 {
     public static class ModelBuilderExtensions
     {
-        //private async Task ConfigureDefaultUsers(UserManager<User> userManager, IUserService userService)
-        //{
-        //    var isTableEmpty = await userService.IsUserTableEmpty();
-
-        //    if (!isTableEmpty) { return; }
-
-        //    await Task.WhenAll(defaultUsers.Select(x => userManager.CreateAsync(x, "TestUser1")));
-        //}
-
-        //private async Task AddClaims(User user, UserManager<User> userManager)
-        //{
-        //    var claim = new Claim(ClaimNames.UserIdentifier, user.UserIdentifier.ToString());
-
-        //    await userManager.AddClaimAsync(user, claim);
-        //}
-
         public static ModelBuilder SetUpTestUsers(this ModelBuilder builder, IPasswordHasher<User> passwordHasher)
         {
             var defaultUsers = new List<User>();
