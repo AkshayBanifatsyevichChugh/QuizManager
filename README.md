@@ -17,9 +17,9 @@ Restricted user:
 - Password: TestUser1
 
 View user:
-- Username: View@user.com
+- Username: view@user.com
 - Password: TestUser1
 
 Edit user:
-- Username: Edit@user.com
+- Username: edit@user.com
 - Password: TestUser1
