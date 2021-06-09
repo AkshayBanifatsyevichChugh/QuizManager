@@ -1,0 +1,42 @@
+﻿
+@model ViewQuestionViewModel
+
+@{
+    ViewData["Title"] = $"Viewing question - { Model.Question.QuestionText }";
+}
+
+<section id="quiz">
+
+    <div id="title">
+        <h1>@Model.Question.QuestionText </h1>
+    </div>
+
+    <hr />
+    <div class="mb-2">
+        <a type="button" asp-route="@RouteNames.GetViewQuiz" asp-route-id="@Model.Question.QuizId" class="btn btn-primary btn-sm" title="Go back"><span>&#8592;</span> Back</a>
+    </div>
+    <br />
+
+    <div>
+        <h4>Answers</h4>
+        <br />
+    </div>
+
+    <div class="border p-4 border-success rounded">
+
+        <div>
+            <p class="font-italic font-weight-bold">@Model.Question.QuestionText</p>
+        </div>
+
+        <ol type="A">
+
+            @foreach (var answer in Model.Question.Answers)
+            {
+                <li class="font-italic font-weight-light"> @answer.AnswerText @(answer.IsCorrectAnswer == true ? "✔" : "")</li>
+            }
+        </ol>
+
+    </div>
+
+
+</section>

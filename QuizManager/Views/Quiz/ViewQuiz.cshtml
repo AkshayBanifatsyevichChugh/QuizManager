@@ -1,0 +1,77 @@
+﻿
+@model ViewQuizViewModel
+
+@{
+    ViewData["Title"] = $"Viewing quiz - {Model.Quiz.Title}";
+}
+
+<section id="quiz">
+
+    <div id="title">
+        <h1>@Model.Quiz.Title</h1>
+    </div>
+
+    <hr />
+    <div class="mb-2">
+        <a type="button" asp-route="@RouteNames.GetUserDashboard" class="btn btn-primary btn-sm" title="Go back"><span>&#8592;</span> Back</a>
+    </div>
+    <br />
+
+    <div>
+        @if (Model.User.PermissionLevel == PermissionLevel.Edit)
+        {
+            <a type="button" asp-route="@RouteNames.GetEditQuiz" asp-route-Id="@Model.Quiz.Id" class="btn btn-dark btn-sm mr-4 float-right" title="edit quiz">✏ Edit</a>
+        }
+        <h4>Questions</h4>
+    </div>
+    <br />
+
+    <div id="quiz-question-container">
+
+        <ol>
+
+            @foreach (var question in Model.Quiz.Questions)
+            {
+                var correctAnswerCount = question.Answers.Count(x => x.IsCorrectAnswer == true);
+                var isAnswerCountPlural = correctAnswerCount > 1;
+
+                <div class="border p-4 border-success rounded">
+
+                    <div>
+                        <li class="font-italic font-weight-bold">
+                            @question.QuestionText @(Model.User.PermissionLevel > PermissionLevel.Restricted && correctAnswerCount > 1 ? $"(select {correctAnswerCount})" : "")
+                        </li>
+
+                        @if (Model.User.PermissionLevel > PermissionLevel.Restricted)
+                        {
+                            <a type="button" asp-route="@RouteNames.GetViewQuestion" asp-route-questionId="@question.Id" class="btn btn-success btn-sm float-right" title="show correct answers">👀 see answers</a>
+                        }
+
+                    </div>
+                    @if (Model.User.PermissionLevel > PermissionLevel.Restricted)
+                    {
+                        <ol type="A">
+
+                            @foreach (var answer in question.Answers)
+                            {
+
+                                <li class="font-italic font-weight-light"> @answer.AnswerText</li>
+
+                            }
+                        </ol>
+                    }
+                    else
+                    {
+                        <ul style="list-style: none;">
+                            <li class="font-italic font-weight-light">
+                                - <strong> @question.Answers.Count </strong> answers available. <strong>@correctAnswerCount</strong> @(isAnswerCountPlural ? "are" : "is") correct.
+                            </li>
+                        </ul>
+                    }
+                </div>
+            }
+
+        </ol>
+    </div>
+
+</section>

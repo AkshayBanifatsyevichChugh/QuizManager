@@ -1,0 +1,32 @@
+﻿
+@model UserDashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div>
+    <h1>Home</h1>
+    <hr />
+    <br />
+    <br />
+</div>
+
+<section title="My Quizzes">
+    
+    <div>
+        <h4 id="quizzes">Quizzes
+        
+        @if (Model.User.PermissionLevel == PermissionLevel.Edit)
+        {
+        <a type="button" class="btn btn-success btn-sm mr-2 float-right" title="create new quiz" asp-route="@RouteNames.GetCreateQuiz">+ Create</a>
+        }
+
+        </h4>
+    </div>
+
+    <div id="my-quizzes-container">
+        <partial name="_UserQuizzes" model="Model" />
+    </div>
+
+</section>

@@ -1,0 +1,42 @@
+﻿@model UserDashboardViewModel
+
+@if (Model.Quizzes.Any())
+{
+
+    <table class="table table-sm" style="table-layout: fixed;">
+        <thead>
+            <tr>
+                <th scope="col" class="text-center" style="width: 5%">#</th>
+                <th scope="col" style="width: 60%">Title</th>
+                <th scope="col" class="text-center" style="width: 10%"># of questions</th>
+                <th scope="col" style="width: 25%"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var quiz in Model.Quizzes)
+            {
+                <tr>
+                    <th class="text-center" scope="row">@(Model.Quizzes.IndexOf(quiz) + 1)</th>
+                    <td class="font-italic" style="word-wrap: break-word;">@quiz.Title</td>
+                    <td class="text-center">@quiz.Questions.Count</td>
+                    <td>
+                        <div>
+                            <a type="button" asp-route="@RouteNames.GetViewQuiz" asp-route-id="@quiz.Id" class="btn btn-success btn-sm m-1 float-right" title="view quiz">👀 View</a>
+                            @if (Model.User.PermissionLevel > PermissionLevel.View)
+                            {
+                        <a type="button" asp-route="@RouteNames.GetEditQuiz" asp-route-Id="@quiz.Id" class="btn btn-dark btn-sm m-1 float-right" title="edit quiz">✏ Edit</a>
+                                <a type="button" asp-route="@RouteNames.GetDeleteQuiz" asp-route-id="@quiz.Id" class="btn btn-danger btn-sm m-1 float-right" title="delete quiz">Delete</a>
+                            }
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+else
+{
+    <hr />
+    <p class="font-italic font-weight-normal">No quizzes found.</p>
+}

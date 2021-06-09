@@ -1,0 +1,59 @@
+﻿
+@model EditQuizViewModel
+
+@{
+    ViewData["Title"] = $"Editing - {Model.Quiz.Title}";
+}
+
+<section id="quiz">
+
+    <div id="title">
+        <h1>Editing: @Model.Quiz.Title</h1>
+    </div>
+
+    <hr />
+    <div class="mb-2">
+        <a type="button" asp-route="@RouteNames.GetUserDashboard" class="btn btn-primary btn-sm" title="Go back"><span>&#8592;</span> Back</a>
+    </div>
+    <br />
+
+    <div>
+        <a type="button" asp-route="@RouteNames.GetDeleteQuiz" asp-route-id="@Model.Quiz.Id" title="delete quiz" class="btn btn-danger btn-sm float-right mr-1"> Delete Quiz</a>
+        <a type="button" asp-route="@RouteNames.GetAddQuestion" asp-route-quizId="@Model.Quiz.Id" title="add a question" class="btn btn-success btn-sm float-right mr-2">+ Add Question</a>
+        <h4>Questions</h4>
+    </div>
+    <br />
+
+    <div id="quiz-question-container">
+
+        <ol>
+
+            @foreach (var question in Model.Quiz.Questions)
+            {
+                var correctAnswerCount = question.Answers.Count(x => x.IsCorrectAnswer == true);
+
+                <div class="border p-4 border-success rounded">
+
+                    <div>
+                        <a type="button" asp-route="@RouteNames.GetDeleteQuestion" asp-route-quizId="@Model.Quiz.Id" asp-route-questionId="@question.Id" title="delete question" class="btn btn-danger btn-sm float-right mr-1">Delete</a>
+                        <a type="button" asp-route="@RouteNames.GetEditQuestion" asp-route-quizId="@Model.Quiz.Id" asp-route-questionId="@question.Id" title="edit question" class="btn btn-dark btn-sm float-right mr-2">✏ Edit</a>
+                        <li class="font-italic font-weight-bold">@question.QuestionText @(correctAnswerCount > 1 ? $"(select {correctAnswerCount})" : "")</li>
+                    </div>
+
+                    <ol type="A">
+
+                        @foreach (var answer in question.Answers)
+                        {
+                        <div>
+                            <li class="font-italic font-weight-light"> @answer.AnswerText @(answer.IsCorrectAnswer.Value ? "✔" : "")</li>
+                        </div>
+                        }
+                    </ol>
+
+                </div>
+            }
+
+        </ol>
+    </div>
+
+</section>

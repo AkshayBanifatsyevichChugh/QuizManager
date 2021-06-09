@@ -1,0 +1,74 @@
+﻿@using Microsoft.AspNetCore.Mvc.ModelBinding
+
+@model EditQuestionViewModel
+
+@{
+    ViewData["Title"] = "Add question";
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    @Html.ValidationSummary(false, "There is a problem:", new { @class = "text-danger" });
+}
+<section id="create-quiz-form">
+
+    <div>
+        <h1>Editing: @Model.Quiz.Title</h1>
+    </div>
+
+    <hr />
+
+    <div class="mb-2">
+        <a type="button" asp-route="@RouteNames.GetEditQuiz" asp-route-Id="@Model.Quiz.Id" class="btn btn-primary btn-sm" title="Go back"><span>&#8592;</span> Back</a>
+    </div>
+
+    <form id="update-question-form" method="post" asp-route="@RouteNames.PostEditQuestion">
+
+        @Html.HiddenFor(x => x.Question.QuizId)
+        @Html.HiddenFor(x => x.Question.Id)
+
+        <div id="sub-heading">
+            <br />
+            <h4> Edit question </h4>
+            <br />
+        </div>
+
+        <div class="form-group" name="Questions">
+            <label for="quiz-question-input">Question:</label>
+            <textarea class="form-control @(ViewData.ModelState[nameof(Model.Question)]?.ValidationState == ModelValidationState.Invalid  ? "is-invalid" : "")" id="quiz-question-input" asp-for="Question.QuestionText" rows="2" placeholder="e.g. In which country was Napoleon Bonaparte born?">@Model.Question.QuestionText</textarea>
+        </div>
+
+        <div id="question-answers-container">
+
+            @foreach (var answer in Model.Question.Answers)
+            {
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <input type="checkbox" title="check if this is the correct answer to the question" aria-label="Checkbox for following text input" @(answer.IsCorrectAnswer != null && answer.IsCorrectAnswer.Value ? "checked" : "")>
+                            @Html.HiddenFor(x => answer.Id)
+                            <label class="form-check-label ml-2">Is correct</label>
+                        </div>
+                    </div>
+                    <input class="form-control" title="type an answer for your question here" type="text" value="@answer.AnswerText" placeholder="Type an answer here" required>
+                    <div class="input-group-append">
+                        <button class="btn btn-danger btn-sm" type="button" title="delete answer" onclick="deleteAnswer(this)">Delete</button>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+        <div id="hidden-values-container">
+        </div>
+
+        <div>
+            <br />
+            <button type="button" class="btn btn-primary btn-sm" title="add an answer" onclick="addAnswer('question-answers-container')">Add an Answer</button>
+            <button type="button" class="btn btn-success btn-sm float-right" title="update question" onclick="saveQuestionToQuiz('question-answers-container', 'quiz-question-input', 'hidden-values-container', 'update-question-form')">Update Question</button>
+            <a type="button" asp-route="@RouteNames.GetEditQuiz" asp-route-Id="@Model.Quiz.Id" title="cancel" class="btn btn-danger btn-sm mr-1 float-right">Cancel</a>
+        </div>
+
+        <hr />
+    </form>
+</section>

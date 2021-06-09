@@ -1,0 +1,55 @@
+﻿@using Microsoft.AspNetCore.Mvc.ModelBinding
+
+@model AddQuestionViewModel
+
+@{
+    ViewData["Title"] = "Add question";
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    @Html.ValidationSummary(false, "There is a problem:", new { @class = "text-danger" });
+}
+<section id="create-quiz-form">
+
+    <div>
+        <h1>Editing: @Model.Quiz.Title</h1>
+    </div>
+
+    <hr />
+
+    <div class="mb-2">
+        <a type="button" asp-route="@RouteNames.GetEditQuiz" asp-route-Id="@Model.Quiz.Id" class="btn btn-primary btn-sm" title="Go back"><span>&#8592;</span> Back</a>
+    </div>
+
+    <form id="add-question-form" method="post" asp-route="@RouteNames.PostAddQuestion">
+
+        @Html.HiddenFor(x => x.Question.QuizId)
+
+        <div id="sub-heading">
+            <br />
+            <h4> Add question </h4>
+            <br />
+        </div>
+
+        <div class="form-group" name="Questions">
+            <label for="quiz-question-input">Question:</label>
+            <textarea class="form-control @(ViewData.ModelState[nameof(Model.Question)]?.ValidationState == ModelValidationState.Invalid  ? "is-invalid" : "")" id="quiz-question-input" asp-for="Question.QuestionText" rows="2" placeholder="e.g. In which country was Napoleon Bonaparte born?"></textarea>
+        </div>
+
+        <div id="question-answers-container">
+        </div>
+
+        <div id="hidden-values-container">
+        </div>
+
+        <div>
+            <br />
+            <button type="button" class="btn btn-primary btn-sm" title="add an answer" onclick="addAnswer('question-answers-container')">Add an Answer</button>
+            <button type="button" class="btn btn-success btn-sm float-right" title="save question" onclick="saveQuestionToQuiz('question-answers-container', 'quiz-question-input', 'hidden-values-container', 'add-question-form')">Save Question</button>
+            <button type="button" class="btn btn-danger btn-sm mr-1 float-right" title="clear form" onclick="clearQuestion('question-answers-container', 'quiz-question-input')">Clear</button>
+        </div>
+
+        <hr />
+    </form>
+</section>
