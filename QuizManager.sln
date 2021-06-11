@@ -5,11 +5,13 @@ VisualStudioVersion = 16.0.31229.75
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizManager.Presentation", "QuizManager\QuizManager.Presentation.csproj", "{F17EED5C-1B68-42B2-9941-228B47CF5E4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizManager.Domain", "QuizManager.Domain\QuizManager.Domain.csproj", "{F9D2AFF1-A8CD-4313-A01D-6F7F43AEDD48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizManager.Domain", "QuizManager.Domain\QuizManager.Domain.csproj", "{F9D2AFF1-A8CD-4313-A01D-6F7F43AEDD48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizManager.Infrastructure", "QuizManager.Infrastructure\QuizManager.Infrastructure.csproj", "{054BE004-9D75-491D-8496-AFB61FCA5C3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizManager.Infrastructure", "QuizManager.Infrastructure\QuizManager.Infrastructure.csproj", "{054BE004-9D75-491D-8496-AFB61FCA5C3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizManager.Application", "QuizManager.Application\QuizManager.Application.csproj", "{99F4EBE1-EC1D-4E8E-92EA-F3658A842D7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizManager.Application", "QuizManager.Application\QuizManager.Application.csproj", "{99F4EBE1-EC1D-4E8E-92EA-F3658A842D7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizManager.Tests", "QuizManager.Tests\QuizManager.Tests.csproj", "{41D2FC0E-2F69-4338-B9C5-9656A69F74C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{99F4EBE1-EC1D-4E8E-92EA-F3658A842D7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99F4EBE1-EC1D-4E8E-92EA-F3658A842D7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99F4EBE1-EC1D-4E8E-92EA-F3658A842D7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41D2FC0E-2F69-4338-B9C5-9656A69F74C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41D2FC0E-2F69-4338-B9C5-9656A69F74C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41D2FC0E-2F69-4338-B9C5-9656A69F74C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41D2FC0E-2F69-4338-B9C5-9656A69F74C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
